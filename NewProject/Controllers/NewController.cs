@@ -14,6 +14,19 @@ namespace NewProject.Controllers
             _ORM = ORM;
 
         }
+        [HttpGet]
+        public IActionResult AddStudent() {
+
+            return View();
+        }
+        [HttpPost]
+        public IActionResult AddStudent(Student S) {
+            _ORM.Add(S);
+            _ORM.SaveChanges();
+            ModelState.Clear();
+            ViewBag.message = "Record Added Successfully"; 
+                          return View();
+        }
 
         public IActionResult Index()
         {
