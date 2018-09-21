@@ -50,6 +50,11 @@ namespace NewProject.Controllers
 
 
         }
+        public IActionResult StudentDetail(int id) {
+            Student S = _ORM.Student.Where(m => m.Id == id).FirstOrDefault<Student>();
+            return View(S);
+
+        }
 
         public IActionResult Index()
         {

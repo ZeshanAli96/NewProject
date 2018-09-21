@@ -1,0 +1,42 @@
+﻿@model NewProject.Models.Student
+
+@{
+    ViewData["Title"] = "StudentDetail";
+}
+
+<h2>StudentDetail</h2>
+
+<div>
+    <h4>Student</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.FatherName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FatherName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Class)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Class)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Department)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Department)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a class="btn btn-warning" asp-action="EditDetail" asp-route-id="@Model.Id"><span class="glyphicon glyphicon-pencil"></span>Edit</a> |
+    <a asp-action="Viewlist" class="btn btn-success">Back to List</a>
+</div>
