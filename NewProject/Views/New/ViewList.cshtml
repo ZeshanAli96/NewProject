@@ -1,0 +1,35 @@
+﻿@model IList<Student>
+<br>
+
+<a href="/New/AddStudent" class="btn btn-warning">Add Student</a>
+</br>
+<table id="mytable" name="mytable" class="table table-bordered">
+    <thead>
+    <tr>
+    <td>ID:</td>
+    <td>Name:</td>
+    <td>Father Name:</td>
+    <td>Class:</td>
+    <td>Depratment:</td>
+        <td>Description</td>
+    </tr>
+    <tbody>
+        @foreach (Student S in Model)
+        {
+        <tr>
+        <td>@S.Id</td>
+        <td>@S.Name</td>
+        <td>@S.FatherName</td>
+        <td>@S.Class</td>
+        <td>@S.Department</td>
+        <td><a href="/Student/StudentDetail?Id=@S.Id" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-ok"></span> Detail</a>
+        <a href="/Student/DeleteStudent?Id=@S.Id" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-remove"></span> Delete</a>
+
+        </td>
+</tr>
+
+    }
+        </tbody>
+        </thead>
+
+    </table>

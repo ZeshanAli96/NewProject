@@ -27,7 +27,14 @@ namespace NewProject.Controllers
             ViewBag.message = "Record Added Successfully"; 
                           return View();
         }
+        public IActionResult ViewList()
+        {
 
+            IList<Student> list = _ORM.Student.ToList<Student>();
+
+            return View(list);
+
+        }
         public IActionResult Index()
         {
            
