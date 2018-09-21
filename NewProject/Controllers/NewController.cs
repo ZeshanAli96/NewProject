@@ -35,6 +35,22 @@ namespace NewProject.Controllers
             return View(list);
 
         }
+        [HttpGet]
+        public IActionResult EditDetail(int id) {
+            Student S = _ORM.Student.Where(m => m.Id == id).FirstOrDefault<Student>();
+            return View(S);
+        }
+        [HttpPost]
+        public IActionResult EditDetail(Student S)
+        {
+            _ORM.Student.Update(S);
+            _ORM.SaveChanges();
+
+         return RedirectToAction("ViewList");
+
+
+        }
+
         public IActionResult Index()
         {
            
