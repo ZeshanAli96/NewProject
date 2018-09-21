@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using NewProject.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using NewProject.Models;
 
 namespace NewProject
 {
@@ -39,6 +40,10 @@ namespace NewProject
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDefaultIdentity<IdentityUser>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+            services.AddDbContext<NewProjectContext>(options =>
+               options.UseSqlServer(
+                   Configuration.GetConnectionString("CS")));
+
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
