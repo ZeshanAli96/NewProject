@@ -38,6 +38,7 @@ namespace NewProject.Models
                 entity.Property(e => e.FatherName).HasMaxLength(50);
 
                 entity.Property(e => e.Name).HasMaxLength(50);
+                entity.Property(e => e.Cv).HasMaxLength(250);
             });
 
             modelBuilder.Entity<Teacher>(entity =>

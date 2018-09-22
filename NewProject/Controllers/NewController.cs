@@ -1,7 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Internal;
 using Microsoft.AspNetCore.Mvc;
 using NewProject.Models;
 
@@ -10,9 +14,10 @@ namespace NewProject.Controllers
     public class NewController : Controller
     {
         NewProjectContext _ORM = null;
-        public NewController(NewProjectContext ORM) {
+        IHostingEnvironment _ENV = null;
+        public NewController(NewProjectContext ORM, IHostingEnvironment ENV) {
             _ORM = ORM;
-
+            _ENV = ENV;
         }
         [HttpGet]
         public IActionResult AddStudent() {
@@ -20,7 +25,17 @@ namespace NewProject.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult AddStudent(Student S) {
+        public IActionResult AddStudent(Student S, IFormFile Cv) {
+          string WwwRoot = _ENV.WebRootPath;
+            string FTPpath = WwwRoot + "/WebData/Cv";
+            string UniqueName = Guid.NewGuid().ToString();
+            string FileExtension = Path.GetExtension(Cv.FileName);
+            FileStream Fs = new FileStream(FTPpath + UniqueName + FileExtension, FileMode.Create);
+            Cv.CopyTo(Fs);
+            Fs.Close();
+            S.Cv = "/WebData/Cv" + UniqueName + FileExtension;
+
+
             _ORM.Add(S);
             _ORM.SaveChanges();
             ModelState.Clear();

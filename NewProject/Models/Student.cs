@@ -10,5 +10,6 @@ namespace NewProject.Models
         public string FatherName { get; set; }
         public string Class { get; set; }
         public string Department { get; set; }
+        public string Cv { get; set; }
     }
 }
