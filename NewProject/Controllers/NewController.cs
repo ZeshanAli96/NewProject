@@ -42,10 +42,21 @@ namespace NewProject.Controllers
             ViewBag.message = "Record Added Successfully"; 
                           return View();
         }
+        [HttpGet]
+            
         public IActionResult ViewList()
         {
 
             IList<Student> list = _ORM.Student.ToList<Student>();
+
+            return View(list);
+
+        }
+        [HttpPost]
+        public IActionResult ViewList(string name, string sclass, string department)
+        {
+
+            IList<Student> list = _ORM.Student.Where(m=> m.Name.Contains(name)|| m.Class.Contains(sclass)|| m.Department.Contains(department)).ToList<Student>();
 
             return View(list);
 

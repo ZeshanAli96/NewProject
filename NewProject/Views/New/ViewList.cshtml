@@ -1,8 +1,18 @@
 ﻿@model IList<Student>
+
+
 <br>
 
 <a href="/New/AddStudent" class="btn btn-warning">Add Student</a>
-</br>
+<br>
+<br> 
+<h3> Total Students: @Model.Count()</h3>
+<form method="post">
+<input type="text" name="name" id="name" placeholder="search by name"/>
+ <input type="text" name="sclass" id="sclass" placeholder="search by class"/>
+   <input type="text" name="department" id="department" placeholder="search by Department" />
+    <input type="submit" value="Search" />
+</form>>
 <table id="mytable" name="mytable" class="table table-bordered">
     <thead>
     <tr>
