@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Mail;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -39,9 +40,49 @@ namespace NewProject.Controllers
             _ORM.Add(S);
             _ORM.SaveChanges();
             ModelState.Clear();
-            ViewBag.message = "Record Added Successfully"; 
-                          return View();
+            MailMessage oEmail =new MailMessage();
+            oEmail.From = new MailAddress("kabikoiayega@gmail.com");
+            oEmail.To.Add(new MailAddress(S.Email));
+            //oEmail.CC.Add(new MailAddress("XXXX@XXXX.com"));
+            oEmail.Subject = "Thanks for Regisration";
+            oEmail.Body = "Dear " + S.Name + ",<br><br>" +
+                "Thanks for registering with ABC, We are glad to have you in our system." +
+                "<br><br>" +
+                "<b>Regards</b>,<br>ABC Team";
+            oEmail.IsBodyHtml = true;
+            if (!string.IsNullOrEmpty(S.Cv))
+            {
+                oEmail.Attachments.Add(new Attachment(WwwRoot + S.Cv));
+            }
+
+            
+
+            
+            SmtpClient oSMTP = new SmtpClient();
+            oSMTP.Host = "smtp.gmail.com";
+            oSMTP.Port = 465;
+            oSMTP.EnableSsl = true;
+            oSMTP.Credentials = new System.Net.NetworkCredential("ghscharwa@gmail.com","xxxxx");
+
+            try
+            {
+                oSMTP.Send(oEmail);
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+
+            //
+
+            ViewBag.Message = "Student Record has been added";
+            return View();
         }
+
+        //ViewBag.message = "Record Added Successfully"; 
+          //                return View();
+        
         [HttpGet]
             
         public IActionResult ViewList()
@@ -82,6 +123,22 @@ namespace NewProject.Controllers
 
         }
 
+        public string deletestudent(Student S) {
+
+            string result = "";
+            try
+            {
+                _ORM.Student.Remove(S);
+                _ORM.SaveChanges();
+                result = "Yes";
+            }
+            catch (Exception e) {
+                result = "No";
+
+            }
+            return result;
+
+                }
         public IActionResult Index()
         {
            
